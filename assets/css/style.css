@@ -1,0 +1,15 @@
+.logoSize {
+width:45%; 
+/* //height:35%;  */
+height:0%;
+margin-left:25%; 
+}
+
+.startbtn {
+    margin-top: 0%; 
+    margin-left:25%; 
+}
+
+#questionResults {
+    margin:5%; 
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Trivia</title>
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+</head>
+
+<body>
+
+    <div class="startSection row">
+        <!-- <h1><img class="logoSize"
+                src="https://merlinsmusings.files.wordpress.com/2015/01/wizarding-world-of-harry-potter-logo.jpg"
+                alt="harry potter logo">
+        </h1> -->
+        <div class="col-lg-12">
+            <button class="startbtn">Start Game</button>
+        </div>
+    </div>
+
+
+    <section id="mainGame">
+        <div>Time Remaining: <span id="timeLeft">10seconds</span></div>
+        <div id="question">Question</div>
+       <!-- <div id="ans"></div> -->  <br> 
+        <!-- <div id="ansB">Answer</div>
+        <div id="ansC">Answer</div>New divs can be created with answer choices  -->
+    </section>
+    <!-- Want this section to display after answer has been checked -->
+    <section id="questionResults">
+            <div>Time Remaining: <span id="timeLeft">10seconds</span></div>
+            <div id="noYes">test</div>
+            <div>The correct answer was: <span id="answer">test answer</span> </div>
+    </section>
+<!-- Want this section to display after all questions in the array has been answered -->
+    <section id="resultsPage"> 
+        <div>total Correct answer: <span id=wins></span></div>
+        <div>total Wrong Answers: <span id=losses></span></div>
+
+
+    </section>
+
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="assets/javascript/app.js"></script>
+</body>
+
+</html>
