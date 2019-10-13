@@ -63,13 +63,14 @@ $(document).ready(function () {
   };
 
   //generateQuestion();
-  console.log(quesIndex);
+  console.log("ques Index :" + quesIndex);
   console.log("question :" + myQuestions.quiz[quesIndex].question);
   console.log("correct ans :" + myQuestions.quiz[quesIndex].correctAnswer);
 
   //when user selects restart game 
   function startGame() {
-    $("#timeLeft").text(time);
+    wins = 0; 
+    loss = 0; 
     generateQuestion(); 
   }
 
@@ -89,14 +90,17 @@ $(document).ready(function () {
       $("#question").append(ansDiv);
       ansDiv.append(p);
     }
+  }
     //the answers click function 
     $(document).on('click', '.answers', function (e) {
-      console.log("checking what is this :" + this.class);
+      console.log("user clicked");
+      clearInterval(timerID); 
       if ($(e.target).attr("data-ans") == myQuestions.quiz[quesIndex].correctAnswer) {
-        console.log("correct answer amswered");
+        console.log("correct answer");
         correctAnswer();
       }
       else {
+        console.log("wrong answer");
         wrongAnswer();
       }
 
@@ -104,7 +108,7 @@ $(document).ready(function () {
     });
 
 
-  }
+  
 
 
   function timer() {
@@ -114,8 +118,8 @@ $(document).ready(function () {
     time--;
     if (time === 0) {
       //generate new questions 
-      //restart timer 
-      clearTimeout(timerID);
+      //restart timer
+      clearInterval(timerID);
       console.log("time up");
       timeup(); //line 126 
     }
@@ -123,24 +127,29 @@ $(document).ready(function () {
   }
 
   function timeup() {
-    clearTimeout(timerID);
-    $("#timeLeft").text(time);
+    clearInterval(timerID);
+    loss++;
     console.log("timeUp function called :" + time);
+    console.log("loss Counter time :" + loss); 
     showAnswer();
   }
 
 
   function correctAnswer() {
     wins++;
-    clearTimeout(timerID);
-    showAnswer();
+    clearInterval(timerID);
+    showAnswer(); 
+    //timeup(); 
   }
 
   //if user selects wrong  answer: loss count increments, show the right ans (for few seconds), check if the last question so that to show results page 
   function wrongAnswer() {
     loss++;
-    clearTimeout(timerID);
-    showAnswer();
+    clearInterval(timerID); 
+    console.log("loss Counter :" +loss); 
+    console.log("win Counter :" +wins); 
+    showAnswer(); 
+   //timeup(); 
   }
 
 
@@ -152,19 +161,19 @@ $(document).ready(function () {
     $("#mainGame").hide();
     //ShowAnswer to show for 7 seconds 
     //time = 7; 
-   //clearInterval(timerID); 
+    //clearInterval(timerID); 
     //timerID = setInterval(timer, 1000);
     $("#answer").text(myQuestions.quiz[quesIndex].correctAnswer);
-    console.log("time for Show 7Answer page :" + time);
+    console.log("time for Show Answer page :" + time);
     console.log("timer for Show Answer page :" + timerID);
-    setTimeout(lastQueschecker,3000); 
+    lastQueschecker(); 
   }
 
   function lastQueschecker() {
     console.log("lastQuestCheckerFunCalled");
     if (quesIndex == (myQuestions.quiz.length) - 1) {
-      //setTimeout(showResults, 3000);
-      showRestults(); 
+      setTimeout(showResults, 3000);
+      //showRestults(); 
     }
     else {
       setTimeout(nextQuestion, 3000);
@@ -173,6 +182,7 @@ $(document).ready(function () {
 
   function nextQuestion() {
     quesIndex++;
+    time = 7; 
     generateQuestion();
     $("#mainGame").show(); 
     console.log("next Question function called");
@@ -184,6 +194,8 @@ $(document).ready(function () {
     $("#questionResults").hide();
     $("#mainGame").hide();
     $("#resultsPage").show();
+    $("#wins").text(wins); 
+    $("#losses").text(loss); 
   }
 
 });
