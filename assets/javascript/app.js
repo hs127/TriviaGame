@@ -18,7 +18,7 @@ $(document).ready(function () {
     $(".startSection").hide(); //start game page 
     $("#questionResults").hide(); //want to show when user ans ques or timer goes out 
     $("#resultsPage").hide();
-    startGame(); 
+    startGame();
     //timer to start or game to start 
   });
 
@@ -28,10 +28,10 @@ $(document).ready(function () {
   var quesIndex = 0;
   var userChoice = "";
   var answerChoices = [];
-  var timer;
+  var timerID;
 
 
-  const myQuestions = {
+  var myQuestions = {
     "quiz": [{
       question: "What house at Hogwarts does Harry belong to?",
       answers: [
@@ -63,23 +63,24 @@ $(document).ready(function () {
   };
 
   //generateQuestion();
-  console.log(quesIndex); 
+  console.log(quesIndex);
   console.log("question :" + myQuestions.quiz[quesIndex].question);
-  console.log("correct ans :" + myQuestions.quiz[quesIndex].correctAnswer); 
+  console.log("correct ans :" + myQuestions.quiz[quesIndex].correctAnswer);
 
   //when user selects restart game 
   function startGame() {
-generateQuestion(); 
+    $("#timeLeft").text(time);
+    generateQuestion(); 
   }
 
   function generateQuestion() {
-    timer = setInterval(timer, 1000);
-
+    clearInterval(timerID);
+    timerID = setInterval(timer, 1000);
     //the current question that is displayed 
     $("#question").html(myQuestions.quiz[quesIndex].question);
     //display ans choices
     //look into object.key 
-    //console.log(Object.keys("object key" + myQuestions.quiz[0].answers)); 
+    //console.log(Object.keys("object key" + myQuestions.quiz[0].answers))
 
     //for loop to display answer choices of the current ques
     for (i = 0; i < myQuestions.quiz[quesIndex].answers.length; i++) {
@@ -96,7 +97,7 @@ generateQuestion();
         correctAnswer();
       }
       else {
-        wrongAnswer(); 
+        wrongAnswer();
       }
 
       e.preventDefault();
@@ -108,78 +109,81 @@ generateQuestion();
 
   function timer() {
     // generateQuestions after 7 seconds and restart timer 
-    time--;
     $("#timeLeft").text(time);
-    console.log(time); 
-    if (time == 0) {
+    console.log("timer function called :" + time);
+    time--;
+    if (time === 0) {
       //generate new questions 
       //restart timer 
-      console.log("time up")
+      clearTimeout(timerID);
+      console.log("time up");
       timeup(); //line 126 
-
     }
 
   }
 
   function timeup() {
-    clearInterval(timer);
+    clearTimeout(timerID);
     $("#timeLeft").text(time);
-    showAnswer(); 
-    //lastQueschecker();
+    console.log("timeUp function called :" + time);
+    showAnswer();
   }
+
 
   function correctAnswer() {
     wins++;
-    clearInterval(timer);
+    clearTimeout(timerID);
     showAnswer();
-    //lastQueschecker();
-
   }
 
   //if user selects wrong  answer: loss count increments, show the right ans (for few seconds), check if the last question so that to show results page 
   function wrongAnswer() {
     loss++;
-    clearInterval(timer);
+    clearTimeout(timerID);
     showAnswer();
-   // lastQueschecker();
   }
+
 
   function showAnswer() {
     //showCorrect answer after user clicks option or timer goes up
     console.log("showAns function called");
+    $("#timeLeft").text(time);
     $("#questionResults").show();
-    $("#mainGame").hide(); 
-
+    $("#mainGame").hide();
     //ShowAnswer to show for 7 seconds 
-    clearInterval(timer);  
-    timer = setInterval(timer, 1000);
+    //time = 7; 
+   //clearInterval(timerID); 
+    //timerID = setInterval(timer, 1000);
     $("#answer").text(myQuestions.quiz[quesIndex].correctAnswer);
-    console.log("time for Show Answer page :" + time); 
-    lastQueschecker(); 
+    console.log("time for Show 7Answer page :" + time);
+    console.log("timer for Show Answer page :" + timerID);
+    setTimeout(lastQueschecker,3000); 
   }
 
   function lastQueschecker() {
+    console.log("lastQuestCheckerFunCalled");
     if (quesIndex == (myQuestions.quiz.length) - 1) {
-      setTimeout(showResults(), 3000);
+      //setTimeout(showResults, 3000);
+      showRestults(); 
     }
     else {
-      setTimeout(nextQuestion(), 3000);
-
+      setTimeout(nextQuestion, 3000);
     }
   }
 
   function nextQuestion() {
     quesIndex++;
     generateQuestion();
+    $("#mainGame").show(); 
+    console.log("next Question function called");
   }
 
   function showResults() {
     //after all questions from the array has been answered
     console.log("show Results function called");
     $("#questionResults").hide();
-    $("#mainGame").hide(); 
-    $("#resultsPage").show(); 
-
+    $("#mainGame").hide();
+    $("#resultsPage").show();
   }
 
 });
