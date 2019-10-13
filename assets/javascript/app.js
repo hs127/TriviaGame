@@ -138,6 +138,7 @@ $(document).ready(function () {
   function correctAnswer() {
     wins++;
     clearInterval(timerID);
+    $("#noYes").text("YASSSS!!"); 
     showAnswer(); 
     //timeup(); 
   }
@@ -148,6 +149,7 @@ $(document).ready(function () {
     clearInterval(timerID); 
     console.log("loss Counter :" +loss); 
     console.log("win Counter :" +wins); 
+    $("#noYes").text("NOPE!!"); 
     showAnswer(); 
    //timeup(); 
   }
@@ -185,6 +187,7 @@ $(document).ready(function () {
     time = 7; 
     generateQuestion();
     $("#mainGame").show(); 
+    $("#questionResults").hide();
     console.log("next Question function called");
   }
 
