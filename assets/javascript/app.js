@@ -14,6 +14,7 @@ $(document).ready(function () {
   $("#resultsPage").hide();
 
   $(".startbtn").click(function () {
+    clearInterval(timerID); 
     $("#mainGame").show(); //shows one question at a time with the ans choices
     $(".startSection").hide(); //start game page 
     $("#questionResults").hide(); //want to show when user ans ques or timer goes out 
@@ -69,8 +70,10 @@ $(document).ready(function () {
 
   //when user selects restart game 
   function startGame() {
+    quesIndex = 0; 
     wins = 0; 
     loss = 0; 
+    clearInterval(timerID);  
     generateQuestion(); 
   }
 
@@ -85,7 +88,8 @@ $(document).ready(function () {
 
     //for loop to display answer choices of the current ques
     for (i = 0; i < myQuestions.quiz[quesIndex].answers.length; i++) {
-      var ansDiv = $("<div>").addClass("choices").attr("id", "ans" + i);
+      var breaks = $("<br> <br>"); 
+      var ansDiv = $("<div>").attr("id", "ans" + i).append(breaks);
       var p = $("<button>").addClass("answers").text(myQuestions.quiz[quesIndex].answers[i]).attr("data-ans", myQuestions.quiz[quesIndex].answers[i]);
       $("#question").append(ansDiv);
       ansDiv.append(p);
@@ -107,10 +111,6 @@ $(document).ready(function () {
       e.preventDefault();
     });
 
-
-  
-
-
   function timer() {
     // generateQuestions after 7 seconds and restart timer 
     $("#timeLeft").text(time);
@@ -121,6 +121,7 @@ $(document).ready(function () {
       //restart timer
       clearInterval(timerID);
       console.log("time up");
+      $("#noYes").text("Time is Up! Counted as Wrong"); 
       timeup(); //line 126 
     }
 
@@ -131,6 +132,7 @@ $(document).ready(function () {
     loss++;
     console.log("timeUp function called :" + time);
     console.log("loss Counter time :" + loss); 
+    $("#noYes").text("Time is Up! Counted as Wrong"); 
     showAnswer();
   }
 
@@ -138,7 +140,7 @@ $(document).ready(function () {
   function correctAnswer() {
     wins++;
     clearInterval(timerID);
-    $("#noYes").text("YASSSS!!"); 
+    $("#noYes").text("YAASSSS!"); 
     showAnswer(); 
     //timeup(); 
   }
@@ -200,5 +202,21 @@ $(document).ready(function () {
     $("#wins").text(wins); 
     $("#losses").text(loss); 
   }
+
+   $("#playAgain").click(function() {
+
+    alert("To be worked on"); 
+    //TO-DO: needs to work as start game button
+    //TO-DO: neeed to clear interval of timer
+    //TO-DO: hide all sections of the game except the id with mainGame 
+    //TO-DO: reset all the counters
+
+  //   clearInterval(timerID); 
+  //   $("#mainGame").show(); //shows one question at a time with the ans choices
+  //   $(".startSection").hide(); //start game page 
+  //   $("#questionResults").hide(); //want to show when user ans ques or timer goes out 
+  //   $("#resultsPage").hide();
+  //   startGame();
+   });
 
 });
