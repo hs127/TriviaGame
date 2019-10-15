@@ -205,18 +205,19 @@ $(document).ready(function () {
 
    $("#playAgain").click(function() {
 
-    alert("To be worked on"); 
+
     //TO-DO: needs to work as start game button
     //TO-DO: neeed to clear interval of timer
     //TO-DO: hide all sections of the game except the id with mainGame 
     //TO-DO: reset all the counters
 
-  //   clearInterval(timerID); 
-  //   $("#mainGame").show(); //shows one question at a time with the ans choices
-  //   $(".startSection").hide(); //start game page 
-  //   $("#questionResults").hide(); //want to show when user ans ques or timer goes out 
-  //   $("#resultsPage").hide();
-  //   startGame();
+    clearInterval(timerID); 
+     $("#mainGame").show(); //shows one question at a time with the ans choices
+     $(".startSection").hide(); //start game page 
+    $("#questionResults").hide(); //want to show when user ans ques or timer goes out 
+     $("#resultsPage").hide();
+     time=7;
+    startGame();
    });
 
 });
